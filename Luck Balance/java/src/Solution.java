@@ -11,7 +11,27 @@ public class Solution {
     // Complete the luckBalance function below.
     static int luckBalance(int k, int[][] contests) {
 
-        return 0;
+        //priority queue will order luck smallest to largest
+        PriorityQueue<Integer> q = new PriorityQueue<>();
+        int luck = 0;
+        int countImportant = 0;
+
+        //loop through to sum all luck and add important contests' luck to queue
+        for(int i=0; i<contests.length; i++) {
+            luck += contests[i][0];
+
+            if(contests[i][1] == 1) {
+                q.add(contests[i][0]);
+                countImportant++;
+            }
+        }
+
+        for(int i=0; i<countImportant-k; i++) {
+            luck -= 2*q.remove(); // multiply by 2 to account for adding to the sum earlier
+        }
+
+
+        return luck;
     }
 
     private static final Scanner scanner = new Scanner(System.in);
